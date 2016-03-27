@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    /* json-simple 1.1.1 causes build problems.  junit not needed if you use it, though */
+    testCompile 'junit:junit:4.10'
+    compile 'com.googlecode.json-simple:json-simple:1.1'
+}
+
+sourceCompatibility = 1.7
