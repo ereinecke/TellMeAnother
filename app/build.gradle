@@ -1,13 +1,15 @@
 apply plugin: 'com.android.application'
- rem
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.ereinecke.tellmeanother"
-        minSdkVersion 10
+        // minSdkVersion 10
+        minSdkVersion 21
         targetSdkVersion 23
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
@@ -17,11 +19,212 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    /* Avoid the huge time penalty dexing play-services
+    productFlavors {
+        dev {
+            minSdkVersion 21
+        }
+        prod {
+            minSdkVersion 10
+        }
+    }
+    */
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g" // Use gig increments depending on needs
+        incremental true
+    }
+    /* The following ridiculous packagingOptions are to avoid the Duplicate files copied in APK
+       error.  Can I have a wildcard,please?
+     */
+    packagingOptions {
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_exact_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_hebrew_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_languages.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_rules_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_dutch.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_approx_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_dutch.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_exact_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_hebrew_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_languages.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_dutch.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/gen_rules_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/lang.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_russian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_approx_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_approx_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_germah.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_polish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_exact_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_hebrew_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_languages.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_any.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_arabic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_common.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_cyrillic.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_czech.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_english.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_french.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_german.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_greek.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_greeklatin.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_hebrew.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_hungarian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_italian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_portuguese.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_romanian.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_spanish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_turkish.txt'
+        pickFirst 'com/google/appengine/repackaged/org/codehaus/jackson/impl/VERSION.txt'
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.2.1'
+    compile project(':jokeDisplay')
     // Added for AdMob
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
 }

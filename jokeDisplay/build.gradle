@@ -5,7 +5,10 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        minSdkVersion 10
+        // minSdkVersion lower than 21 caused out-of-memory exception after very long
+        // transformClassesWithDexForDebug (30 min)
+        //  minSdkVersion 10
+        minSdkVersion 21
         targetSdkVersion 23
         multiDexEnabled true
         versionCode 1
@@ -27,11 +30,13 @@ android {
         }
     }
     */
+    /* Use if this library connects to Google Play
     dexOptions {
         preDexLibraries true
-        javaMaxHeapSize "2g" // Use gig increments depending on needs
+        javaMaxHeapSize "4g" // Use gig increments depending on needs
         incremental true
     }
+    */
 }
 
 dependencies {
@@ -40,9 +45,9 @@ dependencies {
     compile project(':javaJokes')
     compile project(':backend')
     // compile project(':app')
+    // Added for AdMob
+    // compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
-    // Added for AdMob
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile project(path: ':backend', configuration: 'android-endpoints')
 }
