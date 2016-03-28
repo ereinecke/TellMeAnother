@@ -33,12 +33,31 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.ereinecke.androidjokes.JokeActivity" >
+
+        <TextView
+            android:id="@+id/joke_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:paddingTop="@dimen/text_margin_for_fab"
+            android:paddingBottom="@dimen/text_margin_for_fab"
+            android:text="@string/large_text" />
+
+    </android.support.v4.widget.NestedScrollView>
+
+    <!--  Two different approaches to using a fragment - decided I don't need one - instead
+          implemented NestedScrollView in activity for the joke
     <fragment android:name="com.ereinecke.jokeDisplay.JokeActivityFragment"
         android:id = "@+id/joke_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
     />
-    <!--
+
     <include layout="@layout/content_joke" />
     -->
     <android.support.design.widget.FloatingActionButton

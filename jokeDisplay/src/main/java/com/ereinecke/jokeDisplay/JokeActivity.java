@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.ereinecke.javaJokes.Joker;
 
 public class JokeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = JokeActivity.class.getSimpleName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +26,21 @@ public class JokeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        /* Start JokeActivityFragment */
-//        FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ft = fm.beginTransaction();
-//        ft.add(JokeActivityFragment, );
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                    JokeActivityFragment.refreshJoke();
+                    refreshJoke();
                 }
             });
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        refreshJoke();
     }
 
 
@@ -60,5 +63,14 @@ public class JokeActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshJoke() {
+        TextView textView = (TextView) findViewById(R.id.joke_view);
+        Joker myJoker = new Joker();
+        String seeJoke = myJoker.getJoke();
+        Log.d(LOG_TAG, " joke: " + seeJoke);
+//        textView.setText(myJoker.getJoke());
+        textView.setText(seeJoke);
     }
 }
