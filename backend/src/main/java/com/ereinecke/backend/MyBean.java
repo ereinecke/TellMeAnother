@@ -1,4 +1,4 @@
-package com.ereinecke.jokes.backend;
+package com.ereinecke.backend;
 
 /** The object model for the data we are sending through endpoints */
 public class MyBean {
