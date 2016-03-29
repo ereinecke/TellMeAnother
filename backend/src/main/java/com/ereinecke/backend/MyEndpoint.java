@@ -14,11 +14,12 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 /** An endpoint class we are exposing */
 @Api(
-  name = "tellJoke",
+  name = "jokeApi",
   version = "1a",
+  description = "An API serving random jokes",
   namespace = @ApiNamespace(
-    ownerDomain = "backend.jokes.ereinecke.com",
-    ownerName   = "backend.jokes.ereinecke.com",
+    ownerDomain = "backend.ereinecke.com",
+    ownerName   = "backend.ereinecke.com",
     packagePath = ""
   )
 )
@@ -33,7 +34,7 @@ public class MyEndpoint {
         return response;
     }
 
-    /* pull joke from javaJoke library */
+    /* pull random joke from javaJoke library */
     private String refreshJoke() {
         Joker myJoker = new Joker();
         return myJoker.getJoke();
