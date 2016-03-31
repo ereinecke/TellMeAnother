@@ -1,11 +1,11 @@
-package com.ereinecke.jokeDisplay;
+package com.ereinecke.tellmeanother;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.util.Pair;
 
-import com.ereinecke.backend.jokeApi.JokeApi;
+import com.ereinecke.tellmeanother.backend.jokeApi.JokeApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;

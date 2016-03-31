@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hello, Endpoints!</title>
+    <title>Tell Me Another!</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
@@ -47,7 +47,7 @@
     <!--
         Output from Endpoints API call.
     -->
-    <div class="joke joke-success" style="visibility: collapse;" id="showJoke"></div>
+    <div class="joke joke-success" style="visibility: visible;" id="showJoke"></div>
 
 </div>
 
@@ -55,7 +55,7 @@
     // A function that attaches a "Hit Me" button click handler
     function enableClick() {
       document.getElementById('jokeButton').onclick = function() {
-        var name = document.getElementById('nameInput').value;
+        // var name = document.getElementById('nameInput').value;
         gapi.client.myApi.tellJoke({).execute(
           function(response) {
             var showJokeDiv = document.getElementById('showJoke');

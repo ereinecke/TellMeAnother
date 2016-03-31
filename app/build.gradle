@@ -5,13 +5,11 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.ereinecke.tellmeanother"
-        // minSdkVersion 10
         minSdkVersion 21
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -19,7 +17,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    /* Avoid the huge time penalty dexing play-services
+
+    /* free and paid versions */
+    productFlavors {
+        free {
+            applicationId "com.ereinecke.tellmeanother.free"
+        }
+        paid {
+            applicationId "com.ereinecke.tellmeanother.paid"
+        }
+    }
+
+    /* Avoid the huge time penalty dexing play-services */
     productFlavors {
         dev {
             minSdkVersion 21
@@ -28,15 +37,17 @@ android {
             minSdkVersion 10
         }
     }
-    */
+
+    /* Use if this library connects to Google Play */
     dexOptions {
         preDexLibraries true
-        javaMaxHeapSize "4g" // Use gig increments depending on needs
+        javaMaxHeapSize "3g" // Use gig increments depending on needs
         incremental true
     }
+
     /* The following ridiculous packagingOptions are to avoid the Duplicate files copied in APK
-       error.  Can I have a wildcard,please?
-     */
+       error.  Can I have a wildcard,please?  */
+
     packagingOptions {
         pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_any.txt'
         pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/ash_approx_arabic.txt'
@@ -218,6 +229,7 @@ android {
         pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_spanish.txt'
         pickFirst 'com/google/appengine/repackaged/org/apache/commons/codec/language/bm/sep_rules_turkish.txt'
         pickFirst 'com/google/appengine/repackaged/org/codehaus/jackson/impl/VERSION.txt'
+
     }
 }
 
@@ -225,6 +237,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile project(':jokeDisplay')
-    // Added for AdMob
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile project(':backend')
+    compile project(path: ':backend', configuration: 'android-endpoints')
+    // Added for AdMob in free flavor only
+    freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
 }

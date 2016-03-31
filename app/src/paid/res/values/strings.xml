@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Tell Me Another</string>
+    <string name="about_text">This is the premium version of Tell Me Another!\n
+        Jokes are provided by the WebKnox Joke API.\n
+        Coded by Erik Reinecke for the Android Nanodegree program. Please submit suggestions or bug reports to erik@ereinecke.com.</string>
+</resources>

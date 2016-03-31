@@ -1,4 +1,4 @@
-package com.ereinecke.javaJokes;
+package com.ereinecke.tellmeanother.javaJokes;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,7 +23,6 @@ public class Joker {
         String joke;
         String category;
         int rating;
-
     }
 
     /* Return a joke from JSON */
@@ -44,7 +43,7 @@ public class Joker {
 
             int numJokes = jokeArray.size();
             if (numJokes == 0) {
-                System.out.println(LOG_TAG + "numJokes: " + numJokes);
+                System.out.println(LOG_TAG + "No jokes found.");
                 return null;
             }
 
@@ -73,7 +72,7 @@ public class Joker {
         return null;
     }
 
-    // TODO: Convert this to pull data from WebKnowx Joke API
+    // TODO: Convert this to pull data from WebKnox Joke API
     /* Returns a selection of jokes in JSON format.  Currently, this is hardcoded but will
      * be replaced by a call to the WebKnox Joke API */
     private String JokeJSON() {

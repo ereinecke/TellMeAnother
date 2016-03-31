@@ -7,10 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.ereinecke.jokeDisplay.JokeActivity;
+import com.ereinecke.tellmeanother.jokeDisplay.JokeActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -33,15 +36,22 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_about) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    */
+
+    public String fetchJoke() {
+
     }
 
     public void launchJokeActivity(View view){
         Intent myIntent = new Intent(this, JokeActivity.class);
         startActivity(myIntent);
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.ereinecke.javaJokes;
+package com.ereinecke.tellmeanother.javaJokes;
 
 import org.junit.Test;
 

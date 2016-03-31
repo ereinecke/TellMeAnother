@@ -1,12 +1,7 @@
-/*
-   For step-by-step instructions on connecting your Android application to this backend module,
-   see "App Engine Java Endpoints Module" template documentation at
-   https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
-*/
 
-package com.ereinecke.backend;
+package com.ereinecke.tellmeanother.backend;
 
-import com.ereinecke.javaJokes.Joker;
+import com.ereinecke.tellmeanother.javaJokes.Joker;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -18,8 +13,8 @@ import com.google.api.server.spi.config.ApiNamespace;
   version = "1a",
   description = "An API serving random jokes",
   namespace = @ApiNamespace(
-    ownerDomain = "backend.ereinecke.com",
-    ownerName   = "backend.ereinecke.com",
+    ownerDomain = "backend.tellmeanother.ereinecke.com",
+    ownerName   = "backend.tellmeanother.ereinecke.com",
     packagePath = ""
   )
 )

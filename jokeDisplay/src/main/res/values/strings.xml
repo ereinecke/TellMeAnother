@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Tell Me Another</string>
+    <string name="about">About</string>
+    <string name="action_about">About</string>
+    <string name="version">Version: %1$s</string>
+    <string name="not_available">not available.</string>
+    <string name="free_about_text">This is the ad-supported version of Tell Me Another!\n
+        Jokes are provided by the WebKnox Joke API.\n
+        Coded by Erik Reinecke for the Android Nanodegree program. Please submit suggestions or bug reports to erik@ereinecke.com.</string>
+    <string name="prem_about_text">This is the premium version of Tell Me Another!\n
+        Jokes are provided by the WebKnox Joke API.\n
+        Coded by Erik Reinecke for the Android Nanodegree program. Please submit suggestions or bug reports to erik@ereinecke.com.</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -89,5 +99,4 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
-    <string name="action_settings">Settings</string>
 </resources>

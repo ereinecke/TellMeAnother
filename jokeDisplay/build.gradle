@@ -7,12 +7,11 @@ android {
     defaultConfig {
         // minSdkVersion lower than 21 caused out-of-memory exception after very long
         // transformClassesWithDexForDebug (30 min)
-        //  minSdkVersion 10
         minSdkVersion 21
         targetSdkVersion 23
         multiDexEnabled true
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
@@ -20,30 +19,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    /* Avoid the huge time penalty dexing play-services
-    productFlavors {
-        dev {
-            minSdkVersion 21
-        }
-        prod {
-            minSdkVersion 10
-        }
-    }
-    */
-    /* Use if this library connects to Google Play
-    dexOptions {
-        preDexLibraries true
-        javaMaxHeapSize "4g" // Use gig increments depending on needs
-        incremental true
-    }
-    */
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile project(':backend')
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
-    compile project(path: ':backend', configuration: 'android-endpoints')
+    // compile project(':backend')
 }
