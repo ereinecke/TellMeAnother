@@ -1,9 +1,8 @@
 package com.ereinecke.tellmeanother;
 
+
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.util.Pair;
 
 import com.ereinecke.tellmeanother.backend.jokeApi.JokeApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
@@ -13,19 +12,23 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
+
 /**
  * EndPointsAsyncTask executes an AsyncTask to query Google App Engine app
  * Starter code from
  *    https://github.com/GoogleCloudPlatform/gradle-appengine-templates/tree/master/HelloEndpoints
  */
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     private static final String LOG_TAG = EndpointsAsyncTask.class.getSimpleName();
     private static final boolean DEV_SERVER = false;
+    private static final String JOKE_KEY = "joke";
+    private static final String ROOT_URL = "https://1a-dot-joke-1249.appspot.com/_ah/api/";
     private static JokeApi jokeApiService = null;
-    private Context context;
+
+    private Context mContext;
 
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected String doInBackground(Void... params) {
 
         JokeApi.Builder builder;
 
@@ -47,7 +50,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             } else {
                 builder = new JokeApi.Builder(AndroidHttp.newCompatibleTransport(),
                         new AndroidJsonFactory(), null)
-                        .setRootUrl("https://joke-1249.appspot.com/_ah/api/");
+                        .setRootUrl(ROOT_URL);
             }
             jokeApiService = builder.build();
         }
@@ -61,10 +64,11 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d(LOG_TAG, "in onPostExecute: " + result);
-        // JokeActivity.setJoke(result);
-        // write joke to joke_view
-        // TextView jokeView = (TextView) JokeActivity.findViewById(R.id.joke_view);
-        // jokeView.setText(result);
+//        Log.d(LOG_TAG, "in onPostExecute: " + result);
+//        Intent jokeIntent = new Intent();
+//        jokeIntent.setClass(Context.getApplicationContext(), JokeActivity.class);
+//        jokeIntent.putExtra(JOKE_KEY, result);
+//        context.startActivity(jokeIntent);
     }
+
 }

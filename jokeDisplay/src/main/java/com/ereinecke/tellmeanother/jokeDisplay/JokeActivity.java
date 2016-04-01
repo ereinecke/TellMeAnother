@@ -1,18 +1,20 @@
 package com.ereinecke.tellmeanother.jokeDisplay;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class JokeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = JokeActivity.class.getSimpleName();
-    public static String theJoke;
+    static final String JOKE_KEY = "joke";
+    private static String joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,22 +25,36 @@ public class JokeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if (fab != null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    refreshJoke();
-                }
-            });
+        // TODO: use FloatingActionButton to refresh joke
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        if (fab != null) {
+//            fab.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    refreshJoke();
+//                }
+//            });
+//        }
+
+        // TODO: Catch intent and populate the joke_view
+        Bundle extras = getIntent().getExtras();
+        if (extras == null) {
+            joke = getResources().getString(R.string.no_joke);
+        } else {
+            joke = extras.getString(JOKE_KEY);
         }
+        Log.d(LOG_TAG, "JokeActivity.onCreate, joke = " + joke);
+        TextView jokeView = (TextView) findViewById(R.id.joke_view);
+        jokeView.setText(joke);
     }
 
+    /*
     @Override
     protected void onStart() {
         super.onStart();
         refreshJoke();
     }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -61,8 +77,12 @@ public class JokeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // TODO: send a broadcast to MainActivity to trigger a new joke.
     private void refreshJoke() {
         // temporary feedback
         Toast.makeText(this, "refreshing joke...", Toast.LENGTH_LONG).show();
     }
+
+
+
 }

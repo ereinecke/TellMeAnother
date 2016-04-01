@@ -3,13 +3,19 @@ package com.ereinecke.tellmeanother.jokeDisplay;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ereinecke.tellmeanother.BuildConfig;
+
 
 public class AboutActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = AboutActivity.class.getSimpleName();
+    private static String PACKAGE_NAME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +48,24 @@ public class AboutActivity extends AppCompatActivity {
 
             TextView versionText = (TextView) view.findViewById(R.id.about_version);
             versionText.setText(getString(R.string.version, versionName));
+
+            TextView aboutText = (TextView) view.findViewById(R.id.about_text);
+            if (isPaid()) {
+                aboutText.setText(getString(R.string.about, R.string.prem_about_text));
+            } else {
+                aboutText.setText(getString(R.string.about, R.string.free_about_text));
+            }
+
             return view;
         }
+    }
+
+    // Used to populate About text
+    public static boolean isPaid() {
+        // TODO: figure out if this is free or premium for About text
+        // boolean isPaid = PACKAGE_NAME.contains("paid");
+        boolean isPaid = true;
+        Log.d(LOG_TAG, "isPaid(): " + isPaid);
+        return isPaid;
     }
 }
