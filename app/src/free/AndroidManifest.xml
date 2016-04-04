@@ -8,7 +8,6 @@
             android.support.v4, android.support.graphics.drawable,
             android.support.multidex.instrumentation,
             com.ereinecke.jokeDisplay"/>
-
     <application>
 
         <!--This meta-data tag is required to use Google Play Services.-->

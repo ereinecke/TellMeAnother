@@ -241,4 +241,5 @@ dependencies {
     compile project(path: ':backend', configuration: 'android-endpoints')
     // Added for AdMob in free flavor only
     freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
+    androidTestCompile 'org.mockito:mockito-core:1.+'
 }

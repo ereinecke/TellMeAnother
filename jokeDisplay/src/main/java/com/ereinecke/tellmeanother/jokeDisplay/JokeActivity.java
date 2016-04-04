@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 public class JokeActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = JokeActivity.class.getSimpleName();
@@ -36,7 +35,6 @@ public class JokeActivity extends AppCompatActivity {
 //            });
 //        }
 
-        // TODO: Catch intent and populate the joke_view
         Bundle extras = getIntent().getExtras();
         if (extras == null) {
             joke = getResources().getString(R.string.no_joke);
@@ -45,16 +43,10 @@ public class JokeActivity extends AppCompatActivity {
         }
         Log.d(LOG_TAG, "JokeActivity.onCreate, joke = " + joke);
         TextView jokeView = (TextView) findViewById(R.id.joke_view);
-        jokeView.setText(joke);
+        if ((joke != null) && (jokeView != null)) {
+            jokeView.setText(joke);
+        }
     }
-
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        refreshJoke();
-    }
-    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,7 +62,7 @@ public class JokeActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        // noinspection SimplifiableIfStatement
         if (id == R.id.action_about) {
             return true;
         }
@@ -82,7 +74,5 @@ public class JokeActivity extends AppCompatActivity {
         // temporary feedback
         Toast.makeText(this, "refreshing joke...", Toast.LENGTH_LONG).show();
     }
-
-
 
 }
