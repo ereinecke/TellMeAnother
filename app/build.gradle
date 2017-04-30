@@ -11,6 +11,7 @@ android {
         versionCode 2
         versionName "1.2"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -230,15 +231,21 @@ android {
         pickFirst 'com/google/appengine/repackaged/org/codehaus/jackson/impl/VERSION.txt'
 
     }
+
+}
+
+ext {
+    supportLibVersion = "25.3.1"
+    playServicesVersion = "10.2.1"
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile project(':jokeDisplay')
     compile project(':backend')
     compile project(path: ':backend', configuration: 'android-endpoints')
     // Added for AdMob in free flavor only
-    freeCompile 'com.google.android.gms:play-services-ads:8.4.0'
+    freeCompile "com.google.android.gms:play-services-ads:${playServicesVersion}"
     androidTestCompile 'org.mockito:mockito-core:1.+'
 }
